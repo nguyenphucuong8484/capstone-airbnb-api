@@ -20,6 +20,11 @@ const port = process.env.PORT || 8080;
 app.use(express.json());
 app.use(cors());
 
+// Route mặc định: Tự động chuyển hướng sang Swagger UI khi truy cập link gốc /
+app.get('/', (req, res) => {
+  res.redirect('/swagger');
+});
+
 // Route Swagger UI Documentation
 app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
@@ -32,6 +37,6 @@ app.use('/api/dat-phong', datPhongRouter);
 app.use('/api/binh-luan', binhLuanRouter);
 
 app.listen(port, () => {
-  console.log(`🚀 Server Airbnb đang chạy tại http://localhost:${port}`);
-  console.log(`📚 Tài liệu Swagger UI tại http://localhost:${port}/swagger`);
+  console.log(`🚀 Server Airbnb đang chạy tại cổng ${port}`);
+  console.log(`📚 Tài liệu Swagger UI khả dụng tại /swagger`);
 });
